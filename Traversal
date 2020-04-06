@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    struct node *lchild;
+    char info;
+    struct node *rchild;
+};
+struct node *getnode(char x);
+void preorder(struct node *p);
+void inorder(struct node *p);
+void postorder(struct node *p);
+
+int main()
+{
+    struct node *root;
+    root=getnode('P');
+    root->lchild=getnode('Q');
+    root->rchild=getnode('R');
+    root->lchild->lchild=getnode('A');
+    root->lchild->rchild=getnode('B');
+    root->rchild->lchild=getnode('X');
+
+    printf("preorder: ");
+    preorder(root);
+    printf("\n\n");
+    printf("inorder: ");
+    inorder(root);
+    printf("\n\n");
+    printf("postorder: ");
+    postorder(root);
+    printf("\n\n");
+}
+struct node *getnode(char x)
+{
+   struct node *p=(struct node *)malloc(sizeof(struct node));
+   p->info=x;
+   p->lchild=p->rchild=NULL;
+}
+void preorder(struct node *p)
+{
+    if(p==NULL)
+     return;
+    printf("%c",p->info);
+    preorder(p->lchild);
+    preorder(p->rchild);
+}
+void inorder(struct node *p)
+{
+    if(p==NULL)
+     return;
+    inorder(p->lchild);
+    printf("%c",p->info);
+    inorder(p->rchild);
+}
+void postorder(struct node *p)
+{
+    if(p==NULL)
+     return;
+    postorder(p->lchild);
+    postorder(p->rchild);
+    printf("%c",p->info);
+}
